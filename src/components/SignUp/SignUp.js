@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import {returned_name, make_reg_tbl, reg_user, print_reg_tbl, get_name} from '../Database/database.js'
 import './SignUp.css';
+import { get_name, returned_name } from '../Database/database';
 
 function SignUp({ courtID, closeSignUp }) {
   const [type, setType] = useState('');
@@ -42,7 +44,8 @@ function SignUp({ courtID, closeSignUp }) {
     newArr[index] = e.target.value;
     console.log(e.target.value)
     if (e.target.value.length == 10){
-      e.target.value = 'jenny'
+      get_name(e.target.value)
+      e.target.value = returned_name
       newArr[index] = e.target.value;
 
     }
@@ -68,7 +71,7 @@ function SignUp({ courtID, closeSignUp }) {
                 <input
                   type="text"
                   value={value}
-                  placeholder="Player's Phone Number"
+                  placeholder="Player Name"
                   onChange={updatePlayers(index)}
                 />
               </React.Fragment>

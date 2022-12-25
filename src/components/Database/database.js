@@ -84,7 +84,7 @@ function main()
 
 main();
 
-export {returned_name, make_reg_tbl, reg_user, print_reg_tbl, get_name}
+export {returned_name, make_reg_tbl, reg_user, print_reg_tbl, get_name};
 
     /* ---------- REGISTER ----------
     GETS INPUT FROM WEBSITE (NAME, PHONENUMBER/ID)
