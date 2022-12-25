@@ -18,21 +18,30 @@ function make_reg_tbl() // make 'register' table
     });
 }
 
+// Register user given a name and id as input
 function reg_user(name, id)
 {
     db.run("INSERT INTO name_id (name, id) VALUES (?, ?)", [name, id]);
 }
 
+// Prints the whole database
 function print_reg_tbl()
 {
+    console.log("NAME".padEnd(30) + "| ID".padEnd(10))
     // Gets each row in the table
     db.each("SELECT name, id FROM name_id", (err, row) => 
     {
         // Print database values
-        console.log(row.name + ": " + row.id);
+        console.log(row.name.padEnd(30) + "| " + row.id.padEnd(8));
     });
 }
 
+/*  Get name
+    PRE-ORDER   : sid - student ID of length 8
+    POST-ORDER  : Global variable 'returned name' is assigned the value 
+                    from the DB that corresponds to the student id
+    If the id does not exist in the table, then an error will occur
+*/
 function get_name(sid)
 {
     return new Promise(resolve => {
@@ -46,7 +55,7 @@ function get_name(sid)
             {
                 returned_name = row.name;
             }
-            resolve(returned_name);
+            resolve(row);
         });
     });
 }
@@ -55,16 +64,21 @@ function get_name(sid)
 
 function main()
 {
-    db.serialize(() => 
+    db.serialize(async () => 
     {
         db.run("DROP TABLE IF EXISTS name_id");
         make_reg_tbl();
         reg_user('Anthony', 47191956);
         reg_user('Test', 12345678);
         print_reg_tbl();
-        //console.log("-----Getting name from 47191956-----");
-        //returned_name = get_name(47191956);
-        //console.log("Get Name: " + returned_name.name);
+
+        await get_name(47191956);
+        console.log("Get Name: " + returned_name);
+        returned_name = await get_name(12345678);
+        console.log("Get Name: " + returned_name.name);
+        await get_name(47191956);
+        console.log("Get name: " + returned_name);
+
     });
 }
 
