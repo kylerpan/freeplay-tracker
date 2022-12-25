@@ -40,6 +40,12 @@ function SignUp({ courtID, closeSignUp }) {
   const updatePlayers = (index) => (e) => {
     let newArr = [...players];
     newArr[index] = e.target.value;
+    console.log(e.target.value)
+    if (e.target.value.length == 10){
+      e.target.value = 'jenny'
+      newArr[index] = e.target.value;
+
+    }
     setPlayers(newArr);
     console.log(players);
   };
@@ -62,7 +68,7 @@ function SignUp({ courtID, closeSignUp }) {
                 <input
                   type="text"
                   value={value}
-                  placeholder="Player Name"
+                  placeholder="Player's Phone Number"
                   onChange={updatePlayers(index)}
                 />
               </React.Fragment>
