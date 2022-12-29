@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './SignUp.css';
+import { getName } from '../Students/Students';
 
 function SignUp({ courtID, closeSignUp }) {
   const [type, setType] = useState('doubles');
@@ -40,8 +41,20 @@ function SignUp({ courtID, closeSignUp }) {
 
   const updatePlayers = (index) => (e) => {
     let newArr = [...players];
-    newArr[index] = e.target.value;
+    let userInput = e.target.value;
+    newArr[index] = userInput;
+
+    if (userInput.match('^[0-9]*$') && userInput.length == 10) {
+      // this is where we would call db to match number to name
+      e.target.value = getName(userInput);
+      newArr[index] = e.target.value;
+    } else if (!userInput.match('^[0-9]*$')) {
+      e.target.value = userInput.slice(0, -1);
+      newArr[index] = e.target.value;
+    }
+
     setPlayers(newArr);
+    console.log(players);
   };
 
   return courtID ? (

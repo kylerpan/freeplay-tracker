@@ -2,8 +2,13 @@
   "courts": [
     {
       "id": "Court 1 @ 6:00 pm - 6:15 pm",
-      "type": "",
-      "players": []
+      "type": "doubles",
+      "players": [
+        "kyle",
+        "anthony",
+        "jenny",
+        "ethan"
+      ]
     },
     {
       "id": "Court 1 @ 6:15 pm - 6:30 pm",
